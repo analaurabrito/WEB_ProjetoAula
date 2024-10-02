@@ -1,43 +1,30 @@
-## Lista de comandos usados no projeto
+# Projeto WEB
 
-- npm init -y
-- npm i typescript
-- npx tsc --init
-- npm i ts-node
-- npx tsc
+![image](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![image](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![image](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)
+![image](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![image](https://img.shields.io/badge/ts--node-3178C6?style=for-the-badge&logo=ts-node&logoColor=white)
 
-# Código do tsconfig.json
+> Esse repositório foi criado como atividade avaliativa para a disciplina de Programação Avançada WEB, da Universidade de Vila Velha, ministrada pelo professor Otávio Lube. O exercício consiste no desenvolvimento de uma API do tipo CRUD com Typescript, usando React, implementando o Prisma para conexão e migração do Banco de Dados e experimentando a inserção de AI através do GROQ.
 
-```
-{
-  "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
-    "rootDir": "./src",
-    "outDir": "./build",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true
-  }
-}
-```
+O projeto da API tem o controle dos modelos de usuário, posts e comentários.
 
-## Scripts que estão sendo utilizados no package.json
+## 💻 Lista de comandos
 
-- "build": "npx tsc"
-- "dev": "npx ts-node ./src/server.ts"
+Alguns dos comandos usados para a execução do projeto:
 
-## Configurando um servidor web
+- ``` npm init -y ```
+- ``` npm i typescript ```
+- ``` npx tsc --init ```
+- ``` npm i ts-node ```
+- ``` npx tsc ```
+- ``` npm install express ```
+- ``` npm i --save-dev @types/express ```
 
-- npm install express
-- npm i --save-dev @types/express
+## Extensões do VSCode
 
-## Projeto para usar múltiplas versões do NodeJS na mesma máquina
-
-- https://github.com/nvm-sh/nvm?tab=readme-ov-file#install--update-script
-
-## Algumas extensões do VSCode recomendadas
+Algumas das extensões usadas para no desenvolvimento do projeto:
 
 ```
 {
@@ -45,16 +32,17 @@
         "vscode-icons-team.vscode-icons",
         "esbenp.prettier-vscode",
         "prisma.prisma",
-        "Prisma.prisma-insider"
+        "Prisma.prisma-insider",
+        "rangav.vscode-thunder-client"
     ]
 }
 ```
 
-## Instalando o ts-node-dev
+## Ts-node-dev
 
 O ts-node-dev nos ajuda a ter mais produtividade uma vez que ele reinicializar o servidor automaticamente a medida que salvamos o projeto.
 
-- npm i ts-node-dev --save-dev
+- ``` npm i ts-node-dev --save-dev ```
 
 Depois de instalado, basta atualizar o script de execução do projeto para:
 
@@ -62,61 +50,9 @@ Depois de instalado, basta atualizar o script de execução do projeto para:
   "dev": "npx ts-node-dev ./src/server.ts"
 ```
 
-## Configurando o Prisma ORM
+## Prisma ORM
+
+Para a instalação e utilização do Prisma, segue-se a documentação:
 
 - https://www.prisma.io/docs/getting-started/quickstart
 
-Vamos configurar o Prisma ORM com o seguinte schema de dados
-
-```
-generator client {
-  provider = "prisma-client-js"
-}
-
-model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
-  name     String?
-  posts    Post[]
-  comments Comment[]
-}
-
-model Post {
-  id        Int       @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean   @default(false)
-  author    User      @relation(fields: [authorId], references: [id])
-  authorId  Int
-  comments  Comment[]
-}
-
-model Comment {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
-  post      Post    @relation(fields: [postId], references: [id])
-  postId    Int
-}
-
-datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
-}
-
-```
-
-## Instalação da extensão do ThunderClient
-
-- Extension ID = rangav.vscode-thunder-client
-
-## Métodos do HTTP
-
-- https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Methods
-
-## Status Codes do HTTP
-
-- https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status#respostas_de_erro_do_servidor
